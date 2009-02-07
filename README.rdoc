@@ -2,9 +2,21 @@
 
 This redmine plugin enables authentication using SSL client certificates
 
+== Usage
+
+It's very simple
+
+* Install the plugin: ruby script/plugin install git://github.com/koke/redmine_ssl_auth.git
+* Configure apache for SSL authentication
+* Visit https://YOURSITE/login and it will login automatically
+
 == Notes 
 
 * This plugin expects the CN of the certificate to be an email address
 * A user with that email address should exist in the database
 * This doesn't check any password, so implement certificate verification in Apache
 * You can visit /login?skip_ssl=1 to skip SSL authentication and do regular login
+
+== Questions
+
+To jbernal@ebox-platform.com

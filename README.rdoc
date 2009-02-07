@@ -7,7 +7,7 @@ This redmine plugin enables authentication using SSL client certificates
 It's very simple
 
 * Install the plugin: ruby script/plugin install git://github.com/koke/redmine_ssl_auth.git
-* Configure apache for SSL authentication
+* Configure apache for SSL authentication (see Configuration)
 * Visit https://YOURSITE/login and it will login automatically
 
 == Notes 
@@ -17,6 +17,40 @@ It's very simple
 * This doesn't check any password, so implement certificate verification in Apache
 * You can visit /login?skip_ssl=1 to skip SSL authentication and do regular login
 
+== Configuration
+
+Nice tutorial: http://www.vanemery.com/Linux/Apache/apache-SSL.html
+
+In my case, I find this to be the configuration I wanted
+
+        SSLEngine on
+        SSLProtocol all 
+        SSLCipherSuite HIGH:MEDIUM
+
+        SSLCertificateFile /etc/apache2/ssl/server.crt
+        SSLCertificateKeyFile /etc/apache2/ssl/server.key
+        SSLCACertificateFile /etc/apache2/ssl/ca.crt
+
+        SetEnvIf User-Agent ".*MSIE.*" \
+                nokeepalive ssl-unclean-shutdown \
+                downgrade-1.0 force-response-1.0
+
+        SSLVerifyClient optional
+        SSLVerifyDepth 1
+        SSLOptions +StdEnvVars
+        SSLOptions +FakeBasicAuth
+
+        <Location />
+           AuthName "eBox HQ"
+           AuthType Basic
+           AuthUserFile /etc/apache2/passwd/eboxers
+#           Require valid-user
+        </Location>
+
+By making <tt>SSLVerifyClient optional</tt> and commenting <tt>Require valid-user</tt>, it's possible to login without a certificate, using the regular login/password. If you want to force your users to use certificates, change SSLVerifyClient to require and uncomment <tt>Require valid-user</tt>
+
 == Questions
 
 To jbernal@ebox-platform.com
+
+Please, don't ask about apache configuration. I don't know much more than it's already here. Email about the plugin (bugs, patches, suggestions, ...) is welcome :)

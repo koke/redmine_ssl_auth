@@ -44,7 +44,7 @@ In my case, I find this to be the configuration I wanted
            AuthName "eBox HQ"
            AuthType Basic
            AuthUserFile /etc/apache2/passwd/eboxers
-#           Require valid-user
+           #Require valid-user
         </Location>
 
 By making <tt>SSLVerifyClient optional</tt> and commenting <tt>Require valid-user</tt>, it's possible to login without a certificate, using the regular login/password. If you want to force your users to use certificates, change SSLVerifyClient to require and uncomment <tt>Require valid-user</tt>

@@ -7,7 +7,7 @@ module RedmineSslAuth
           return
         end
                 
-        login
+        login_without_ssl_auth
       end
       
       module InstanceMethods

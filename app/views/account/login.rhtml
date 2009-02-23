@@ -3,6 +3,11 @@
 <%= back_url_hidden_field_tag %>
 <table>
 <tr>
+  <td colspan="2" style="text-align: center; font-size: 1.1em">
+    <%= link_to l(:ssl_auth_ssl_login), ssl_login_path %>
+  </td>
+</tr>
+<tr>
     <td align="right"><label for="username"><%=l(:field_login)%>:</label></td>
     <td align="left"><p><%= text_field_tag 'username', nil, :size => 40 %></p></td>
 </tr>

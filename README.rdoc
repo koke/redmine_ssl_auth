@@ -39,15 +39,21 @@ In my case, I find this to be the configuration I wanted
         SSLVerifyDepth 1
         SSLOptions +StdEnvVars
         SSLOptions +FakeBasicAuth
+        
+        <Location /login/ssl>
+          SSLVerifyClient require
+        </Location>
 
         <Location />
            AuthName "eBox HQ"
            AuthType Basic
-           AuthUserFile /etc/apache2/passwd/eboxers
+           AuthUserFile /etc/apache2/passwd/team
            #Require valid-user
         </Location>
 
-By making <tt>SSLVerifyClient optional</tt> and commenting <tt>Require valid-user</tt>, it's possible to login without a certificate, using the regular login/password. If you want to force your users to use certificates, change SSLVerifyClient to require and uncomment <tt>Require valid-user</tt>
+By making <tt>SSLVerifyClient optional</tt> and commenting <tt>Require valid-user</tt>, it's possible to login without a certificate, using the regular login/password. A link is shown in the login form to require SSL authentication, see the <tt>Location /login/ssl</tt> section in the apache configuration.
+
+If you want to force your users to use certificates, change SSLVerifyClient to require and uncomment <tt>Require valid-user</tt>
 
 == Questions
 

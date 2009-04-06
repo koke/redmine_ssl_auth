@@ -2,9 +2,20 @@ module RedmineSslAuth
   module MonkeyPatches
     module AccountPatch
       def login_with_ssl_auth
-        if !User.current.logged? and not params[:skip_ssl] and try_ssl_auth
-          redirect_back_or_default :controller => 'my', :action => 'page'
-          return
+        if params[:force_ssl]
+          if try_ssl_auth
+            redirect_back_or_default :controller => 'my', :action => 'page'
+            return
+          else
+            render_403
+            return
+          end
+        end
+        if !User.current.logged? and not params[:skip_ssl]
+          if try_ssl_auth
+            redirect_back_or_default :controller => 'my', :action => 'page'
+            return
+          end
         end
                 
         login_without_ssl_auth

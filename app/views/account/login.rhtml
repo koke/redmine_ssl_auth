@@ -4,7 +4,7 @@
 <table>
 <tr>
   <td colspan="2" style="text-align: center; font-size: 1.1em">
-    <%= link_to l(:ssl_auth_ssl_login), ssl_login_path %>
+    <%= link_to l(:ssl_auth_ssl_login), ssl_login_path(:back_url => params[:back_url] || request.env['HTTP_REFERER']) %>
   </td>
 </tr>
 <tr>

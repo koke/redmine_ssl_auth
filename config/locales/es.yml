@@ -1,1 +1,2 @@
-ssl_auth_ssl_login: Entrar con certificado SSL
+es:
+  ssl_auth_ssl_login: Entrar con certificado SSL
